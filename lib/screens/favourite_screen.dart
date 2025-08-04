@@ -47,14 +47,22 @@ class _FavoritesScreenState extends State<FavoritesScreen> with RouteAware {
   }
 
   Future<void> _removeFromFavorites(Quote quote) async {
+    setState(() {
+      _favorites.removeWhere((q) => q.id == quote.id);
+    });
+
     await LocalStorageService.removeFavorite(quote);
-    _loadFavorites(); // reload list from storage
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Removed: ${quote.quoteText}'),
+        content: Text(
+          'Removed: ${quote.quoteText}',
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
         behavior: SnackBarBehavior.floating,
-        duration: Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
+        backgroundColor: Colors.red.shade400,
       ),
     );
   }
@@ -84,14 +92,14 @@ class _FavoritesScreenState extends State<FavoritesScreen> with RouteAware {
           gradient: LinearGradient(
             colors: isDark
                 ? [
-              Color(0xFF0F2027),
-              Color(0xFF203A43),
-              Color(0xFF2C5364),
+              const Color(0xFF0F2027),
+              const Color(0xFF203A43),
+              const Color(0xFF2C5364),
             ]
                 : [
-              Color(0xFFE0F7FA),
-              Color(0xFFB2EBF2),
-              Color(0xFF80DEEA),
+              const Color(0xFFE0F7FA),
+              const Color(0xFFB2EBF2),
+              const Color(0xFF80DEEA),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -112,14 +120,18 @@ class _FavoritesScreenState extends State<FavoritesScreen> with RouteAware {
           child: ListView.separated(
             padding: const EdgeInsets.only(bottom: 20),
             itemCount: _favorites.length,
-            separatorBuilder: (_, __) => SizedBox(height: 16),
+            separatorBuilder: (_, __) => const SizedBox(height: 16),
             itemBuilder: (context, index) {
               final quote = _favorites[index];
-              return QuoteCard(
-                key: ValueKey(quote.id),
-                quote: quote,
-                isFavorite: true,
-                onFavorite: () => _removeFromFavorites(quote),
+              return AnimatedOpacity(
+                duration: const Duration(milliseconds: 300),
+                opacity: 1.0,
+                child: QuoteCard(
+                  key: ValueKey(quote.id),
+                  quote: quote,
+                  isFavorite: true,
+                  onFavorite: () => _removeFromFavorites(quote),
+                ),
               );
             },
           ),

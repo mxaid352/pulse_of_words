@@ -32,52 +32,54 @@ class QuoteCard extends StatelessWidget {
       color: Colors.deepPurple.shade700,
       elevation: 6,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            /// Copy Button (top-right)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                const SizedBox(height: 24),
-                Text(
-                  '"${quote.quoteText}"',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontStyle: FontStyle.italic,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '- ${quote.quoteAuthor}',
-                      style: const TextStyle(fontSize: 14, color: Colors.white70),
-                    ),
-                    IconButton(
-                      icon: Icon(
-                        isFavorite ? Icons.favorite : Icons.favorite_border,
-                        color: Colors.redAccent,
-                      ),
-                      onPressed: onFavorite,
-                    ),
-                  ],
+                IconButton(
+                  icon: const Icon(Icons.copy, color: Colors.white70),
+                  onPressed: () => _copyQuote(context),
+                  tooltip: "Copy Quote",
                 ),
               ],
             ),
-          ),
-          Positioned(
-            top: 8,
-            right: 8,
-            child: IconButton(
-              icon: const Icon(Icons.copy, color: Colors.white70),
-              onPressed: () => _copyQuote(context),
-              tooltip: "Copy Quote",
+
+            /// Quote Text
+            Text(
+              '"${quote.quoteText}"',
+              style: const TextStyle(
+                fontSize: 18,
+                fontStyle: FontStyle.italic,
+                color: Colors.white,
+              ),
             ),
-          ),
-        ],
+            const SizedBox(height: 10),
+
+            /// Author + Favorite Button
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '- ${quote.quoteAuthor}',
+                  style: const TextStyle(fontSize: 14, color: Colors.white70),
+                ),
+                IconButton(
+                  icon: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border,
+                    color: isFavorite ? Colors.redAccent : Colors.redAccent,
+                  ),
+                  onPressed: onFavorite,
+                  tooltip: isFavorite ? 'Remove from favorites' : 'Add to favorites',
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

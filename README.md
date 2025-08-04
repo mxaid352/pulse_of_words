@@ -1,16 +1,62 @@
-# pulse_of_words
+🌟 Pulse of Words
+Pulse of Words is a beautifully crafted Flutter app that brings you a curated collection of inspirational and thought-provoking quotes. Users can browse, favorite, and revisit quotes — all offline. Designed with elegance and simplicity, the app is lightweight, smooth, and user-friendly.
 
-A new Flutter project.
+📱 Features
+🔁 Quote Carousel: Swipe to view a fresh quote every time.
 
-## Getting Started
+💖 Favorites: Save your favorite quotes locally.
 
-This project is a starting point for a Flutter application.
+🔙 Previous Button: Revisit the last shown quote anytime.
 
-A few resources to get you started if this is your first Flutter project:
+🌙 Dark Mode Support
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+📦 Offline Access: Works without internet after initial load.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+🎨 Clean UI/UX: Minimal, aesthetic, and accessible design.
+
+📂 Project Structure
+css
+Copy
+Edit
+lib/
+├── main.dart
+├── models/
+│   └── quote.dart
+├── screens/
+│   ├── home_screen.dart
+│   └── favorites_screen.dart
+├── services/
+│   └── local_storage_service.dart
+└── widgets/
+    └── quote_card.dart
+assets/
+└── quotes.json
+
+##📸 Screenshots
+
+###Spalsh Screen
+![splash screen] (screenshots/screenshot1.jpg)
+
+###Home screen
+![Home screen] ((screenshots/screenshot7.jpg)
+###search screen
+![search screen] ((screenshots/screenshot6.jpg)
+###Drawer 
+![Drawer] ((screenshots/screenshot5.jpg)
+###favourite screen
+![Favourite screen] ((screenshots/screenshot4.jpg)
+##Disclaimer screen
+![Disclaimer screen] ((screenshots/screenshot3.jpg)
+###About screen
+![About screen] ((screenshots/screenshot2.jpg)
+
+🛠️ Technologies Used
+Flutter
+
+Dart
+
+Shared Preferences for local storage
+
+JSON for quote data
+
+Material Design

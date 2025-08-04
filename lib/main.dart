@@ -2,12 +2,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pulse_of_words/providers/theme_provider.dart';
-import 'package:pulse_of_words/screens/disclaimer_screen.dart';
-import 'package:pulse_of_words/screens/favourite_screen.dart';
+import 'package:pulse_of_words/screens/splash_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'screens/splash_screen.dart';
 
 final RouteObserver<ModalRoute<void>> routeObserver = RouteObserver<ModalRoute<void>>();
+
 void main() {
   runApp(
     ChangeNotifierProvider(
@@ -24,38 +23,32 @@ class MyApp extends StatelessWidget {
     final prefs = await SharedPreferences.getInstance();
     final rawList = prefs.getStringList('favorite_quotes') ?? [];
 
-    final cleaned = rawList
-        .where((item) {
+    final cleaned = rawList.where((item) {
       try {
         final json = jsonDecode(item);
-        final content = json['quote'] ?? json['content'] ?? '';
-        final author = json['author'] ?? 'Unknown';
-        return content.toString().trim().isNotEmpty;
+        final text = json['quoteText'] ?? '';
+        return text.toString().trim().isNotEmpty;
       } catch (_) {
         return false;
       }
-    })
-        .map((item) {
+    }).map((item) {
       final json = jsonDecode(item);
-      final content = json['quote'] ?? json['content'] ?? '';
-      final author = json['author'] ?? 'Unknown';
-
+      final text = json['quoteText'] ?? json['quote'] ?? json['content'] ?? '';
+      final author = json['quoteAuthor'] ?? json['author'] ?? 'Unknown';
       return jsonEncode({
-        'content': content,
-        'author': author,
+        'quoteText': text.trim(),
+        'quoteAuthor': author.trim(),
       });
     }).toList();
 
     await prefs.setStringList('favorite_quotes', cleaned);
-    debugPrint("✅ Cleaned & migrated favorite quotes");
+    debugPrint("✅ Favorites migrated and cleaned");
   }
-
 
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
 
-    // Wait until theme is initialized before building app
     if (!themeProvider.isInitialized) {
       return const MaterialApp(
         home: Scaffold(
@@ -64,7 +57,7 @@ class MyApp extends StatelessWidget {
       );
     }
 
-    migrateFavoritesFormat(); // call migration only after init
+    migrateFavoritesFormat();
 
     return MaterialApp(
       title: 'Pulse of Words',

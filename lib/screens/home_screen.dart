@@ -19,11 +19,13 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Quote> _filteredQuotes = [];
   int _currentIndex = 0;
   final TextEditingController _searchController = TextEditingController();
+  Set<String> _favoriteQuoteIds = {};
 
   @override
   void initState() {
     super.initState();
     _loadQuotes();
+    _loadFavorites();
   }
 
   Future<void> _loadQuotes() async {
@@ -37,6 +39,13 @@ class _HomeScreenState extends State<HomeScreen> {
     } catch (e) {
       print('❌ Error loading quotes: $e');
     }
+  }
+
+  Future<void> _loadFavorites() async {
+    final favorites = await LocalStorageService.getFavorites();
+    setState(() {
+      _favoriteQuoteIds = favorites.map((q) => q.id).toSet();
+    });
   }
 
   void _showNextQuote() {
@@ -53,12 +62,25 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  void _addToFavorites() async {
+  void _toggleFavorite() async {
     final currentQuote = _filteredQuotes[_currentIndex];
-    await LocalStorageService.addFavorite(currentQuote);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Saved: "${currentQuote.quoteText}"')),
-    );
+    final isFavorite = _favoriteQuoteIds.contains(currentQuote.id);
+
+    setState(() {
+      if (isFavorite) {
+        _favoriteQuoteIds.remove(currentQuote.id);
+        LocalStorageService.removeFavorite(currentQuote);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Removed: "${currentQuote.quoteText}"')),
+        );
+      } else {
+        _favoriteQuoteIds.add(currentQuote.id);
+        LocalStorageService.addFavorite(currentQuote);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Saved: "${currentQuote.quoteText}"')),
+        );
+      }
+    });
   }
 
   void _searchQuotes(String query) {
@@ -78,6 +100,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final quote = _filteredQuotes.isNotEmpty ? _filteredQuotes[_currentIndex] : null;
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final isFavorite = quote != null && _favoriteQuoteIds.contains(quote.id);
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -127,7 +151,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 10),
-                  Text('Words that sparks soul', style: TextStyle(color: isDark ? Colors.white : Colors.black)),
+                  Text('Words that sparks soul',
+                      style: TextStyle(color: isDark ? Colors.white : Colors.black)),
                   const SizedBox(height: 20),
                   TextField(
                     controller: _searchController,
@@ -147,8 +172,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   if (quote != null) ...[
                     QuoteCard(
                       quote: quote,
-                      isFavorite: true,
-                      onFavorite: _addToFavorites,
+                      isFavorite: isFavorite,
+                      onFavorite: _toggleFavorite,
                     ),
                     const SizedBox(height: 20),
                     Row(
@@ -194,3 +219,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
