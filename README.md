@@ -32,29 +32,13 @@ lib/
 assets/
 └── quotes.json
 
-##📸 Screenshots
-
-###Spalsh Screen
-![splash screen] (screenshots/screenshot1.jpg)
-
-###Home screen
-![Home screen] ((screenshots/screenshot7.jpg)
-###search screen
-![search screen] ((screenshots/screenshot6.jpg)
-###Drawer 
-![Drawer] ((screenshots/screenshot5.jpg)
-###favourite screen
-![Favourite screen] ((screenshots/screenshot4.jpg)
-##Disclaimer screen
-![Disclaimer screen] ((screenshots/screenshot3.jpg)
-###About screen
-![About screen] ((screenshots/screenshot2.jpg)
 
 ## App Screenshots
-<img src="screenshots/homedark.jpg" width="300" />  
+## App Screenshots
+<img src="screenshots/Homedark.jpg" width="300" />  
 <img src="screenshots/HomeLigth.jpg" width="300" /> 
-<img src="screenshots/favoritesLight.jpg" width="300" />
-<img src="screenshots/favoritesDark.jpg" width="300" />
+<img src="screenshots/favoriteLight.jpg" width="300" />
+<img src="screenshots/FavoriteDark.jpg" width="300" />
 <img src="screenshots/splashDark.jpg" width="300" />  
 <img src="screenshots/splashLigth.jpg" width="300" /> 
 <img src="screenshots/DisclaimerLight.jpg" width="300" />
@@ -62,7 +46,7 @@ assets/
 <img src="screenshots/DrawerLight.jpg" width="300" />
 <img src="screenshots/DrawerDark.jpg" width="300" />
 <img src="screenshots/AboutLight.jpg" width="300" />
-<img src="screenshots/AboutDark.jpg" width="300" />
+<img src="screenshots/aboutDark.jpg" width="300" />
 
 
 🛠️ Technologies Used
