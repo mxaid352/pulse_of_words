@@ -50,6 +50,21 @@ assets/
 ###About screen
 ![About screen] ((screenshots/screenshot2.jpg)
 
+## App Screenshots
+<img src="screenshots/homedark.jpg" width="300" />  
+<img src="screenshots/HomeLigth.jpg" width="300" /> 
+<img src="screenshots/favoritesLight.jpg" width="300" />
+<img src="screenshots/favoritesDark.jpg" width="300" />
+<img src="screenshots/splashDark.jpg" width="300" />  
+<img src="screenshots/splashLigth.jpg" width="300" /> 
+<img src="screenshots/DisclaimerLight.jpg" width="300" />
+<img src="screenshots/DisclaimerDark.jpg" width="300" />
+<img src="screenshots/DrawerLight.jpg" width="300" />
+<img src="screenshots/DrawerDark.jpg" width="300" />
+<img src="screenshots/AboutLight.jpg" width="300" />
+<img src="screenshots/AboutDark.jpg" width="300" />
+
+
 🛠️ Technologies Used
 Flutter
 
