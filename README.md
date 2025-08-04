@@ -35,7 +35,7 @@ assets/
 
 ## App Screenshots
 ## App Screenshots
-<img src="screenshots/Homedark.jpg" width="300" />  
+<img src="screenshots/HomeDark.jpg" width="300" />  
 <img src="screenshots/HomeLigth.jpg" width="300" /> 
 <img src="screenshots/favoriteLight.jpg" width="300" />
 <img src="screenshots/FavoriteDark.jpg" width="300" />
